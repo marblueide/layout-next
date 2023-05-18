@@ -1,22 +1,33 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Page } from 'src/page/page.entity';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
-export class User{
-  @PrimaryGeneratedColumn()
-  id: number;
+export class User {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
-  username: string
+  username: string;
 
   @Column()
   password: string;
 
   @Column()
-  userGroupId: string
-  
+  userGroupId: string;
+
   @CreateDateColumn()
-  createTime: string
+  createTime: string;
 
   @DeleteDateColumn()
-  deleteTime: string
+  deleteTime: string;
+
+  @OneToMany(() => Page, (page) => page.user)
+  pages: Page[];
 }

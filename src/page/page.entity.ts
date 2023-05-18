@@ -1,14 +1,16 @@
+import { User } from 'src/user/user.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
-export class PageLibrary {
+export class Page {
   @PrimaryGeneratedColumn()
   id: string;
 
@@ -18,8 +20,8 @@ export class PageLibrary {
   @Column()
   router: string;
 
-  @Column()
-  userId: string;
+  @ManyToOne(() => User, (user) => user.pages)
+  user: User;
 
   @Column({
     type: 'text',
