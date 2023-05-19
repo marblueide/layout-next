@@ -2,7 +2,7 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, Controller, Get, Param, Post, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete, Query } from '@nestjs/common';
 import { PageService } from './page.service';
 import { Paginated } from 'src/common/dto/Paginated.model';
 import { CreatePageDto } from './dto/page.create.input';
@@ -34,17 +34,26 @@ export class PageController {
   public async update(@Body() updatePageDto: PageUpdateDto) {
     const res = await this.pageService.update(updatePageDto);
     return {
-      data: res,
       message: '修改成功',
     };
   }
 
   @Delete('delete')
-  public async delete(@Param('id') id: string) {
+  public async delete(@Query('id') id: string) {
     const res = await this.pageService.delete(id);
     return {
       data: res,
       message: '删除成功',
+    };
+  }
+
+  @Get('one')
+  public async one(@Query('id') id: string) {
+    console.log(id)
+    const res = await this.pageService.one(id);
+    return {
+      data: res,
+      message: '查询成功',
     };
   }
 }

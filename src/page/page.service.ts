@@ -23,7 +23,7 @@ export class PageService {
       skip: offset,
       take: limit,
       order: {
-        createTime: 'DESC',
+        updateTime: 'DESC',
       },
       relations: ['user'],
     });
@@ -52,10 +52,11 @@ export class PageService {
   }
 
   async update(data: PageUpdateDto) {
-    const user = await this.userService.one(data.user);
-    return this.pageRepository.update(data.id, {
-      ...data,
-      user: user,
-    });
+    const rest: any = { ...data };
+    if (data.user) {
+      const user = await this.userService.one(data.user);
+      rest.user = user;
+    }
+    return this.pageRepository.update(data.id, rest);
   }
 }
