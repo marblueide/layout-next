@@ -5,14 +5,17 @@ export class PageUpdateDto {
   id: string;
 
   @IsString()
-  readonly pageName: string;
+  readonly pageName?: string;
 
   @IsString()
-  readonly router: string;
+  readonly router?: string;
 
   @IsString()
-  readonly user: string;
+  readonly user?: string;
 
   @IsString()
-  readonly pageData: string;
+  readonly pageData?: string;
+
+  @IsString()
+  readonly describe?: string;
 }

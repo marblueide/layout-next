@@ -9,6 +9,8 @@ import { UserModule } from './user/user.module';
 import { ComponentLibraryModule } from './component-library/component-library.module';
 import { ComponentModule } from './component/component.module';
 import { UserGroupModule } from './user-group/user-group.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { TransformInterceptor } from './common/Interceptor/Transform.Interceptor';
 
 @Module({
   imports: [
@@ -26,6 +28,12 @@ import { UserGroupModule } from './user-group/user-group.module';
     ComponentModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TransformInterceptor,
+    },
+  ],
 })
 export class AppModule {}

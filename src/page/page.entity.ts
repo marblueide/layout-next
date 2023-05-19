@@ -17,7 +17,9 @@ export class Page {
   @Column()
   pageName: string;
 
-  @Column()
+  @Column({
+    default: '',
+  })
   router: string;
 
   @ManyToOne(() => User, (user) => user.pages)
@@ -25,8 +27,15 @@ export class Page {
 
   @Column({
     type: 'text',
+    nullable: true,
+    default: null,
   })
   pageData: string;
+
+  @Column({
+    default: '',
+  })
+  describe: string;
 
   @CreateDateColumn()
   createTime: string;

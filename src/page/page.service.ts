@@ -25,6 +25,7 @@ export class PageService {
       order: {
         createTime: 'DESC',
       },
+      relations: ['user'],
     });
   }
 

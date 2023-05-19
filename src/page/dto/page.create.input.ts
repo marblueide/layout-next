@@ -12,4 +12,7 @@ export class CreatePageDto {
 
   @IsString()
   readonly pageData: string;
+
+  @IsString()
+  readonly describe: string;
 }
