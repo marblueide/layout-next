@@ -8,7 +8,7 @@ import { Paginated } from 'src/common/dto/Paginated.model';
 import { CreatePageDto } from './dto/page.create.input';
 import { PageUpdateDto } from './dto/page.update.input';
 
-@Controller('page')
+@Controller('p')
 export class PageController {
   constructor(private readonly pageService: PageService) {}
 
