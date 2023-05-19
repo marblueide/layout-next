@@ -11,7 +11,7 @@ import {
 
 @Entity()
 export class Page {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

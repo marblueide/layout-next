@@ -6,16 +6,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmConfigService } from './typeormconfig.module';
 import { UserModule } from './user/user.module';
-import { ComponentLibraryModule } from './component-library/component-library.module';
 import { ComponentModule } from './component/component.module';
 import { UserGroupModule } from './user-group/user-group.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TransformInterceptor } from './common/Interceptor/Transform.Interceptor';
+import { ComponentLibraryModule } from './component-library/component-library.module';
 
 @Module({
   imports: [
-    PageModule,
-    UserModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env.development'],
@@ -23,6 +21,8 @@ import { TransformInterceptor } from './common/Interceptor/Transform.Interceptor
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
+    PageModule,
+    UserModule,
     UserGroupModule,
     ComponentLibraryModule,
     ComponentModule,
