@@ -8,7 +8,7 @@ import {
 
 @Entity()
 export class UserGroup {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

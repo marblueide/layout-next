@@ -2,13 +2,21 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, Controller, Get, Param, Post, Delete, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { PageService } from './page.service';
 import { Paginated } from 'src/common/dto/Paginated.model';
 import { CreatePageDto } from './dto/page.create.input';
 import { PageUpdateDto } from './dto/page.update.input';
 
-@Controller('p')
+@Controller('page')
 export class PageController {
   constructor(private readonly pageService: PageService) {}
 
@@ -49,7 +57,7 @@ export class PageController {
 
   @Get('one')
   public async one(@Query('id') id: string) {
-    console.log(id)
+    console.log(id);
     const res = await this.pageService.one(id);
     return {
       data: res,

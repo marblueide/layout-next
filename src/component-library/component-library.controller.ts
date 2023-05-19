@@ -24,8 +24,8 @@ export class ComponentLibraryController {
 
   @Get('list')
   public async findAll(@Query() paginationQuery: PaginationQueryDto) {
-    console.log(11111)
-    const res = await this.componentLibraryService.list(paginationQuery)
+    console.log(111111);
+    const res = await this.componentLibraryService.list(paginationQuery);
     return {
       data: res,
       message: '获取成功',

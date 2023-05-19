@@ -1,7 +1,14 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
-export class ComponentLibrary{
+export class ComponentLibrary {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -12,11 +19,11 @@ export class ComponentLibrary{
   description: string;
 
   @CreateDateColumn()
-  createTime: string
+  createTime: string;
 
   @UpdateDateColumn()
   updateTime: string;
 
   @DeleteDateColumn()
-  deleteTime: string
+  deleteTime: string;
 }
