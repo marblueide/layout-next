@@ -2,30 +2,20 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  Delete,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Delete, Query } from '@nestjs/common';
 import { PageService } from './page.service';
 import { Paginated } from 'src/common/dto/Paginated.model';
 import { CreatePageDto } from './dto/page.create.input';
 import { PageUpdateDto } from './dto/page.update.input';
+import { PaginationQueryDto } from 'src/common/dto/PaginationQuery.dto';
 
 @Controller('page')
 export class PageController {
   constructor(private readonly pageService: PageService) {}
 
   @Get('list')
-  public async list(
-    @Param('offset') offset: number,
-    @Param('limit') limit: number,
-  ) {
-    const res = await this.pageService.list(offset, limit);
+  public async list(@Query() paginationQuery: PaginationQueryDto) {
+    const res = await this.pageService.list(paginationQuery);
     return new Paginated(res[0], res[1]);
   }
 

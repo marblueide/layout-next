@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { PageUpdateDto } from './dto/page.update.input';
 import { UserService } from 'src/user/user.service';
 import { CreatePageDto } from './dto/page.create.input';
+import { PaginationQueryDto } from 'src/common/dto/PaginationQuery.dto';
 
 @Injectable()
 export class PageService {
@@ -18,7 +19,8 @@ export class PageService {
     private readonly userService: UserService,
   ) {}
 
-  list(offset: number, limit: number) {
+  list(paginationQuery: PaginationQueryDto) {
+    const { offset, limit } = paginationQuery;
     return this.pageRepository.findAndCount({
       skip: offset,
       take: limit,
