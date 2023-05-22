@@ -17,28 +17,48 @@ export class ComponentLibraryController {
     private readonly componentLibraryService: ComponentLibraryService,
   ) {}
 
-  @Get(':id')
-  public findOne(@Param('id') id: string) {
-    return this.componentLibraryService.one(id);
+  @Get('one/:id')
+  public async findOne(@Param('id') id: string) {
+    const res = await this.componentLibraryService.one(id);
+    return {
+      data: res,
+      message: '查询成功',
+    };
   }
 
   @Get('list')
   public async findAll(@Query() paginationQuery: PaginationQueryDto) {
-    console.log(111111);
-    const res = await this.componentLibraryService.list(paginationQuery);
+    const [componentLibrary, count] = await this.componentLibraryService.list(
+      paginationQuery,
+    );
     return {
-      data: res,
+      data: {
+        list: componentLibrary,
+        total: count,
+      },
       message: '获取成功',
     };
   }
 
+  @Post('create')
+  public async create(@Body() component: CreateComponentLibraryDto) {
+    const res = await this.componentLibraryService.create(component);
+    return {
+      data: res,
+      message: '创建成功',
+    };
+  }
+
   @Post()
-  public create(@Body() component: CreateComponentLibraryDto) {
-    return this.componentLibraryService.create(component);
+  public update() {
+    return;
   }
 
   @Delete(':id')
-  public remove(@Param('id') id: string) {
-    return this.componentLibraryService.delete(id);
+  public async remove(@Param('id') id: string) {
+    await this.componentLibraryService.delete(id);
+    return {
+      message: '删除成功'
+    }
   }
 }

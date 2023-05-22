@@ -5,5 +5,5 @@ export class CreateComponentLibraryDto {
   libName: string;
 
   @IsString()
-  description: string;
+  description?: string;
 }

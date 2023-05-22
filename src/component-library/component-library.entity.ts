@@ -1,8 +1,10 @@
+import { Component } from 'src/component/component.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -15,9 +17,14 @@ export class ComponentLibrary {
   @Column()
   libName: string;
 
-  @Column()
-  description: string;
+  @Column({
+    default: ''
+  })
+  description?: string;
 
+  @OneToMany(() => Component, (component) => component.libId)
+  components: Component[];
+ 
   @CreateDateColumn()
   createTime: string;
 

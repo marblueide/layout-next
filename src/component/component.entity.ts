@@ -1,24 +1,32 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { ComponentLibrary } from 'src/component-library/component-library.entity';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
-export class Component{
+export class Component {
   @PrimaryGeneratedColumn('uuid')
-  id: string
-
+  id: string;
+ 
   @Column()
   componentName: string;
 
   @Column({
-    type: 'text'
+    type: 'text',
   })
-  ComponentData: string
+  ComponentData: string;
 
-  @Column()
-  libId: string;
+  @ManyToOne(() => ComponentLibrary, (library) => library.components)
+  libId: ComponentLibrary;
 
   @CreateDateColumn()
-  createTime: string
+  createTime: string;
 
   @DeleteDateColumn()
-  deleteTime: string
+  deleteTime: string;
 }

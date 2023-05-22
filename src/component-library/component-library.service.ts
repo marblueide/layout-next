@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationQueryDto } from 'src/common/dto/PaginationQuery.dto';
+import { Component } from 'src/component/component.entity';
 import { Repository } from 'typeorm';
 import { ComponentLibrary } from './component-library.entity';
 import { CreateComponentLibraryDto } from './dto/create-component-library.dto';
@@ -25,6 +26,7 @@ export class ComponentLibraryService {
     return this.componentLibraryRepository.findAndCount({
       skip: offset,
       take: limit,
+      relations: ['components']
     });
   }
 
