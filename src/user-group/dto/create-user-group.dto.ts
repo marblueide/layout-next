@@ -5,8 +5,8 @@ export class CreateUserGroupDto {
   readonly groupName: string;
 
   @IsString()
-  readonly rules: string;
+  readonly rules?: string;
 
   @IsString()
-  status: number;
+  status?: number;
 }

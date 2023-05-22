@@ -11,6 +11,7 @@ import { UserGroupService } from './user-group.service';
 import { PaginationQueryDto } from 'src/common/dto/PaginationQuery.dto';
 import { CreateUserGroupDto } from './dto/create-user-group.dto';
 import { UpdateUserGroupDto } from './dto/update-user-group.dto';
+import { UserService } from 'src/user/user.service';
 
 @Controller('user-group')
 export class UserGroupController {
@@ -37,7 +38,7 @@ export class UserGroupController {
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    await this.delete(id);
+    await this.userGroupService.delete(id);
     return {
       message: '删除成功',
     };

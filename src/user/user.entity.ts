@@ -1,9 +1,11 @@
 import { Page } from 'src/page/page.entity';
+import { UserGroup } from 'src/user-group/user-group.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -13,14 +15,18 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   username: string;
 
   @Column()
   password: string;
 
-  @Column()
-  userGroupId: string;
+  @ManyToOne(() => UserGroup, (userGourp) => userGourp.users, {
+    nullable: true,
+  })
+  userGroup: UserGroup;
 
   @CreateDateColumn()
   createTime: string;
