@@ -33,6 +33,7 @@ export class UserService {
       where: {
         username,
       },
+      relations: ['userGroup'],
     });
   }
 

@@ -17,7 +17,7 @@ import { PaginationQueryDto } from 'src/common/dto/PaginationQuery.dto';
 import { CreateUserDto } from './dto/create.user.dto';
 import { UpdateUserDto } from './dto/update.user.dto';
 
-@Controller()
+@Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {
     this.userService.adminInit();
@@ -33,8 +33,8 @@ export class UserController {
     };
   }
 
-  @Post('create')
-  async create(@Body() data: CreateUserDto) {
+  @Post('register')
+  async register(@Body() data: CreateUserDto) {
     const res = await this.userService.create(data);
     return {
       message: '创建成功',

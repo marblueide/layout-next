@@ -11,6 +11,7 @@ import { UserGroupModule } from './user-group/user-group.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TransformInterceptor } from './common/Interceptor/Transform.Interceptor';
 import { ComponentLibraryModule } from './component-library/component-library.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ComponentLibraryModule } from './component-library/component-library.mo
     UserGroupModule,
     ComponentLibraryModule,
     ComponentModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
