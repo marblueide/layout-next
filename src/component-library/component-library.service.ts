@@ -1,3 +1,4 @@
+import { UpdateComponentLibraryDto } from './dto/update-componet-library.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationQueryDto } from 'src/common/dto/PaginationQuery.dto';
@@ -26,7 +27,7 @@ export class ComponentLibraryService {
     return this.componentLibraryRepository.findAndCount({
       skip: offset,
       take: limit,
-      relations: ['components']
+      relations: ['components'],
     });
   }
 
@@ -37,6 +38,13 @@ export class ComponentLibraryService {
 
     return this.componentLibraryRepository.save(entity);
   }
+
+  update(componentLibrary: UpdateComponentLibraryDto) {
+    return this.componentLibraryRepository.update(
+      componentLibrary.id,
+      componentLibrary,
+    );
+  } 
 
   async delete(id: string) {
     const component = await this.one(id);

@@ -8,5 +8,6 @@ import { ComponentLibraryService } from './component-library.service';
   imports: [TypeOrmModule.forFeature([ComponentLibrary])],
   controllers: [ComponentLibraryController],
   providers: [ComponentLibraryService],
+  exports: [ComponentLibraryService],
 })
 export class ComponentLibraryModule {}
