@@ -10,6 +10,7 @@ import {
 import { PaginationQueryDto } from 'src/common/dto/PaginationQuery.dto';
 import { ComponentLibraryService } from './component-library.service';
 import { CreateComponentLibraryDto } from './dto/create-component-library.dto';
+import { UpdateComponentLibraryDto } from './dto/update-componet-library.dto';
 
 @Controller('componentLibrary')
 export class ComponentLibraryController {
@@ -30,11 +31,14 @@ export class ComponentLibraryController {
   public async findAll(@Query() paginationQuery: PaginationQueryDto) {
     const [componentLibrary, count] = await this.componentLibraryService.list(
       paginationQuery,
-    );
-    return {
+    ); 
+    return { 
       data: {
         list: componentLibrary,
         total: count,
+      },
+      order: {
+        createTime: 'DESC',
       },
       message: '获取成功',
     };
@@ -49,16 +53,20 @@ export class ComponentLibraryController {
     };
   }
 
-  @Post()
-  public update() {
-    return;
+  @Post('update')
+  public async update(@Body() componentLib: UpdateComponentLibraryDto) {
+    const res = await this.componentLibraryService.update(componentLib);
+    return {
+      data: res,
+      message: '更新成功',
+    };
   }
 
   @Delete(':id')
   public async remove(@Param('id') id: string) {
     await this.componentLibraryService.delete(id);
     return {
-      message: '删除成功'
-    }
+      message: '删除成功',
+    };
   }
 }

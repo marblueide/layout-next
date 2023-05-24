@@ -23,7 +23,7 @@ export class TransformInterceptor<T>
       })),
       catchError((err) =>
         of({
-          code: err?.getStatus() || 500,
+          code: 500,
           message: err.message,
           data: null,
         }),
