@@ -5,14 +5,14 @@ export class CreatePageDto {
   readonly pageName: string;
 
   @IsString()
-  readonly router: string;
+  readonly router?: string;
 
   @IsString()
   readonly user: string;
 
   @IsString()
-  readonly pageData: string;
+  readonly pageData?: string;
 
   @IsString()
-  readonly describe: string;
+  readonly describe?: string;
 }

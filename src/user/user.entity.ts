@@ -34,6 +34,8 @@ export class User {
   @DeleteDateColumn()
   deleteTime: string;
 
-  @OneToMany(() => Page, (page) => page.user)
+  @OneToMany(() => Page, (page) => page.user, {
+    cascade: true,
+  })
   pages: Page[];
 }

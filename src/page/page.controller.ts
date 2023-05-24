@@ -2,20 +2,30 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, Controller, Get, Post, Delete, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Delete,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { PageService } from './page.service';
 import { Paginated } from 'src/common/dto/Paginated.model';
 import { CreatePageDto } from './dto/page.create.input';
 import { PageUpdateDto } from './dto/page.update.input';
 import { PaginationQueryDto } from 'src/common/dto/PaginationQuery.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('page')
 export class PageController {
   constructor(private readonly pageService: PageService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('list')
-  public async list(@Query() paginationQuery: PaginationQueryDto) {
-    const res = await this.pageService.list(paginationQuery);
+  public async list(@Query('input') input: string) {
+    const res = await this.pageService.list(input);
     return new Paginated(res[0], res[1]);
   }
 

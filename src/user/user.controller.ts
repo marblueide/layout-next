@@ -43,7 +43,8 @@ export class UserController {
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: string) {
+  async delete(@Query('id') id: string) {
+    console.log(id);
     await this.userService.delete(id);
     return {
       message: '删除成功',

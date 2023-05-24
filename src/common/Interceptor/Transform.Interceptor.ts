@@ -21,13 +21,13 @@ export class TransformInterceptor<T>
         message: '请求成功',
         ...data,
       })),
-      catchError((err) =>
-        of({
+      catchError((err) => {
+        return of({
           code: err?.getStatus() || 500,
           message: err.message,
           data: null,
-        }),
-      ),
+        });
+      }),
     );
   }
 }

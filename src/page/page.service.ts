@@ -5,7 +5,7 @@ https://docs.nestjs.com/providers#services
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Page } from './page.entity';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { PageUpdateDto } from './dto/page.update.input';
 import { UserService } from 'src/user/user.service';
 import { CreatePageDto } from './dto/page.create.input';
@@ -19,15 +19,15 @@ export class PageService {
     private readonly userService: UserService,
   ) {}
 
-  list(paginationQuery: PaginationQueryDto) {
-    const { offset, limit } = paginationQuery;
+  list(input: string) {
     return this.pageRepository.findAndCount({
-      skip: offset,
-      take: limit,
       order: {
         updateTime: 'DESC',
       },
       relations: ['user'],
+      where: {
+        pageName: Like(`%${input}%`),
+      },
     });
   }
 

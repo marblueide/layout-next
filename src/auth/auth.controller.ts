@@ -2,9 +2,16 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  UseGuards,
+  Request,
+  Get,
+  Query,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dto/login.dto';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')

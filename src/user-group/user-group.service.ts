@@ -9,7 +9,6 @@ import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class UserGroupService {
-  adminGourpId: '1';
   constructor(
     @InjectRepository(UserGroup)
     private readonly userGroupRepository: Repository<UserGroup>,
@@ -60,17 +59,14 @@ export class UserGroupService {
     });
   }
 
-  async adminGroupInit() {
-    //管理员初始化
-    console.log('管理员组初始化');
-    let adminGroup = await this.oneByName('管理员');
-    if (!adminGroup) {
+  async groupInit(name: string) {
+    let group = await this.oneByName(name);
+    if (!group) {
       const userGroup = this.userGroupRepository.create({
-        groupName: '管理员',
-        id: this.adminGourpId,
+        groupName: name,
       });
-      adminGroup = await this.userGroupRepository.save(userGroup);
+      group = await this.userGroupRepository.save(userGroup);
     }
-    return adminGroup;
+    return group;
   }
 }

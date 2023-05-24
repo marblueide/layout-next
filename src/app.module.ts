@@ -8,7 +8,7 @@ import { TypeOrmConfigService } from './typeormconfig.module';
 import { UserModule } from './user/user.module';
 import { ComponentModule } from './component/component.module';
 import { UserGroupModule } from './user-group/user-group.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { TransformInterceptor } from './common/Interceptor/Transform.Interceptor';
 import { ComponentLibraryModule } from './component-library/component-library.module';
 import { AuthModule } from './auth/auth.module';

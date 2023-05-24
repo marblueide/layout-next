@@ -2,7 +2,13 @@
 https://docs.nestjs.com/providers#services
 */
 
-import { Inject, Injectable, forwardRef } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  forwardRef,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { LessThanOrEqual, Repository } from 'typeorm';
@@ -10,6 +16,8 @@ import { PaginationQueryDto } from 'src/common/dto/PaginationQuery.dto';
 import { CreateUserDto } from './dto/create.user.dto';
 import { UserGroupService } from 'src/user-group/user-group.service';
 import { UpdateUserDto } from './dto/update.user.dto';
+import { UserGroupEnum } from 'src/common/types/user';
+import * as md5 from "md5"
 
 @Injectable()
 export class UserService {
@@ -45,14 +53,22 @@ export class UserService {
       order: {
         createTime: 'DESC',
       },
+      relations: ['userGroup'],
     });
   }
 
-  create(data: CreateUserDto) {
+  async create(data: CreateUserDto) {
     const rest: any = { ...data };
-    if (data.userGroup) {
-      const userGroup = this.userGroupService.one(data.userGroup);
-      rest.userGourp = userGroup;
+    // if (data.userGroup) {
+    //   const userGroup = this.userGroupService.one(data.userGroup);
+    //   rest.userGourp = userGroup;
+    // }
+    const userGourp = this.userGroupService.oneByName(UserGroupEnum.user);
+    rest.userGourp = userGourp;
+
+    const userExsited = await this.oneByUserName(data.username);
+    if (userExsited) {
+      throw new HttpException('用户已存在', HttpStatus.INTERNAL_SERVER_ERROR);
     }
     const user = this.userRepository.create({
       ...rest,
@@ -75,13 +91,17 @@ export class UserService {
   }
 
   async adminInit() {
-    const userGroup = await this.userGroupService.adminGroupInit();
+    const adminGroup = await this.userGroupService.groupInit(
+      UserGroupEnum.admin,
+    );
+    const userGroup = await this.userGroupService.groupInit(UserGroupEnum.user);
+    const password = md5('123456');
     let admin = await this.oneByUserName('admin');
     if (!admin) {
       const user = this.userRepository.create({
-        userGroup: userGroup,
+        userGroup: adminGroup,
         username: 'admin',
-        password: '123456',
+        password,
       });
       admin = await this.userRepository.save(user);
     }
