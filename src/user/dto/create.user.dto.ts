@@ -6,7 +6,4 @@ export class CreateUserDto {
 
   @IsString()
   readonly password: string;
-
-  @IsString()
-  readonly userGroup?: string;
 }

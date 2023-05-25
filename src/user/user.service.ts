@@ -17,7 +17,7 @@ import { CreateUserDto } from './dto/create.user.dto';
 import { UserGroupService } from 'src/user-group/user-group.service';
 import { UpdateUserDto } from './dto/update.user.dto';
 import { UserGroupEnum } from 'src/common/types/user';
-import * as md5 from "md5"
+import * as md5 from 'md5';
 
 @Injectable()
 export class UserService {
@@ -63,16 +63,16 @@ export class UserService {
     //   const userGroup = this.userGroupService.one(data.userGroup);
     //   rest.userGourp = userGroup;
     // }
-    const userGourp = this.userGroupService.oneByName(UserGroupEnum.user);
-    rest.userGourp = userGourp;
-
+    const userGourp = await this.userGroupService.oneByName(UserGroupEnum.user);
     const userExsited = await this.oneByUserName(data.username);
     if (userExsited) {
       throw new HttpException('用户已存在', HttpStatus.INTERNAL_SERVER_ERROR);
     }
     const user = this.userRepository.create({
+      userGroup: userGourp,
       ...rest,
     });
+    console.log(user);
     return this.userRepository.save(user);
   }
 

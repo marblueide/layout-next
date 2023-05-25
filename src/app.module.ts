@@ -1,3 +1,4 @@
+import { RouterModule } from './router/router.module';
 import { PageModule } from './page/page.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -15,6 +16,7 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
+    RouterModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env.development'],

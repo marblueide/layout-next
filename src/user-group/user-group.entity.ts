@@ -1,9 +1,12 @@
+import { Router } from 'src/router/router.entity';
 import { User } from 'src/user/user.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -34,6 +37,9 @@ export class UserGroup {
     nullable: true,
   })
   users: User[];
+
+  @ManyToMany(() => Router, (router) => router.userGroup)
+  routes: Router[];
 
   @CreateDateColumn()
   createTime: string;
