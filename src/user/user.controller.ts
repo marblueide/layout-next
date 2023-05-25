@@ -10,12 +10,14 @@ import {
   Param,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Paginated } from 'src/common/dto/Paginated.model';
 import { PaginationQueryDto } from 'src/common/dto/PaginationQuery.dto';
 import { CreateUserDto } from './dto/create.user.dto';
 import { UpdateUserDto } from './dto/update.user.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class UserController {
@@ -23,6 +25,7 @@ export class UserController {
     this.userService.adminInit();
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('list')
   async list(@Query() paginationQuery: PaginationQueryDto) {
     const res = await this.userService.list(paginationQuery);
@@ -33,6 +36,7 @@ export class UserController {
     };
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post('register')
   async register(@Body() data: CreateUserDto) {
     const res = await this.userService.create(data);
@@ -42,6 +46,7 @@ export class UserController {
     };
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   async delete(@Query('id') id: string) {
     console.log(id);
@@ -51,6 +56,7 @@ export class UserController {
     };
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post('update')
   async update(@Body() data: UpdateUserDto) {
     await this.userService.update(data);

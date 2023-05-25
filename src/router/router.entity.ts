@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -18,10 +19,12 @@ export class Router {
   @Column()
   name: string;
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   path: string;
 
-  @ManyToMany(() => UserGroup, (userGroup) => userGroup.routes)
+  @ManyToMany(() => UserGroup, (userGroup) => userGroup.router)
   userGroup: UserGroup[];
 
   @CreateDateColumn()

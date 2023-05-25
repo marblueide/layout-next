@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -39,7 +40,8 @@ export class UserGroup {
   users: User[];
 
   @ManyToMany(() => Router, (router) => router.userGroup)
-  routes: Router[];
+  @JoinTable()
+  router: Router[];
 
   @CreateDateColumn()
   createTime: string;

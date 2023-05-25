@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { Observable, map, catchError, of } from 'rxjs';
 import { CommonResponse } from '../dto/CommonResponse.model';
+import { error } from 'console';
 
 @Injectable()
 export class TransformInterceptor<T>

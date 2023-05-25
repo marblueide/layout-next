@@ -16,11 +16,8 @@ export class UserGroupService {
     private readonly userService: UserService,
   ) {}
 
-  list(paginationQueryDto: PaginationQueryDto) {
-    const { offset, limit } = paginationQueryDto;
+  list() {
     return this.userGroupRepository.findAndCount({
-      skip: offset,
-      take: limit,
       order: {
         createTime: 'DESC',
       },

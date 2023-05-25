@@ -18,8 +18,8 @@ export class UserGroupController {
   constructor(private readonly userGroupService: UserGroupService) {}
 
   @Get('list')
-  async list(@Query() paginationQuery: PaginationQueryDto) {
-    const res = await this.userGroupService.list(paginationQuery);
+  async list() {
+    const res = await this.userGroupService.list();
     return {
       message: '查询成功',
       data: res[0],

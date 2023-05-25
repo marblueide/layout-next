@@ -7,9 +7,10 @@ https://docs.nestjs.com/modules
 
 import { Module } from '@nestjs/common';
 import { Router } from './router.entity';
+import { UserGroupModule } from 'src/user-group/user-group.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Router])],
+  imports: [TypeOrmModule.forFeature([Router]), UserGroupModule],
   controllers: [RouterController],
   providers: [RouterService],
   exports: [RouterService],

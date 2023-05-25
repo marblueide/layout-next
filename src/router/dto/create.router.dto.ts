@@ -5,7 +5,7 @@ export class CreateRouterDto {
   readonly name: string;
 
   @IsString()
-  readonly router: string;
+  readonly path: string;
 
   readonly userGroup: string[];
 }
